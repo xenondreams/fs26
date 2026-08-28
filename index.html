@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Press to Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#14121a;
+    --bg-1:#1f1b2e;
+    --panel:#252036;
+    --cream:#f5f0e8;
+    --cream-dim:#b9b2c4;
+    --gold:#ffd25a;
+    --teal:#2fbf9f;
+    --amber:#f2a93b;
+    --magenta:#e8449b;
+    --shadow-deep: rgba(0,0,0,0.55);
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;
+    padding:0;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(255,210,90,0.10), transparent 55%),
+      var(--bg-0);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    min-height:100dvh;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .stage{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100dvh;
+    padding:36px 20px 48px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .marquee{
+    text-align:center;
+    margin-bottom:8px;
+  }
+  .marquee .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    opacity:0.85;
+    display:block;
+    margin-bottom:10px;
+  }
+  .marquee h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(30px, 9vw, 42px);
+    line-height:1.05;
+    margin:0;
+    letter-spacing:0.01em;
+    text-shadow: 0 0 24px rgba(255,210,90,0.25);
+  }
+  .marquee p{
+    color:var(--cream-dim);
+    font-size:14px;
+    margin:0;
+  }
+
+  .panel{
+    width:100%;
+    margin-top:32px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.12)),
+      var(--bg-1);
+    border-radius:28px;
+    padding:26px 20px 30px;
+    box-shadow:
+      0 30px 60px -20px var(--shadow-deep),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .btn{
+    position:relative;
+    border:none;
+    width:100%;
+    padding:22px 20px;
+    border-radius:20px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    color:#1a1420;
+    text-align:left;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    transform:translateY(0);
+    transition:transform 0.08s ease, box-shadow 0.08s ease;
+  }
+  .btn .icon{
+    font-size:26px;
+    line-height:1;
+    filter:drop-shadow(0 1px 0 rgba(255,255,255,0.25));
+  }
+  .btn .label-wrap{display:flex; flex-direction:column; gap:2px;}
+  .btn .sub{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:12px;
+    color:rgba(26,20,32,0.65);
+  }
+  .btn.song{ background: linear-gradient(180deg, #4fe3c1, var(--teal)); box-shadow: 0 8px 0 #1e8a70, 0 14px 24px -8px rgba(47,191,159,0.5);}
+  .btn.sat{ background: linear-gradient(180deg, #ffc766, var(--amber)); box-shadow: 0 8px 0 #b87914, 0 14px 24px -8px rgba(242,169,59,0.5);}
+  .btn.surprise{ background: linear-gradient(180deg, #f16bb4, var(--magenta)); box-shadow: 0 8px 0 #a02566, 0 14px 24px -8px rgba(232,68,155,0.5);}
+
+  .btn:active{
+    transform:translateY(6px);
+  }
+  .btn.song:active{ box-shadow: 0 2px 0 #1e8a70, 0 6px 14px -6px rgba(47,191,159,0.5); }
+  .btn.sat:active{ box-shadow: 0 2px 0 #b87914, 0 6px 14px -6px rgba(242,169,59,0.5); }
+  .btn.surprise:active{ box-shadow: 0 2px 0 #a02566, 0 6px 14px -6px rgba(232,68,155,0.5); }
+
+  .readout{
+    margin-top:26px;
+    width:100%;
+    min-height:120px;
+    background:#0e0c14;
+    border-radius:20px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    border:1px solid rgba(255,210,90,0.15);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.6);
+  }
+  .readout .idle{
+    color:var(--cream-dim);
+    font-size:13px;
+    letter-spacing:0.05em;
+  }
+  .readout .big-number{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:56px;
+    color:var(--gold);
+    line-height:1;
+    text-shadow:0 0 20px rgba(255,210,90,0.4);
+  }
+  .readout .verdict{
+    font-size:14px;
+    color:var(--cream-dim);
+    margin-top:8px;
+    max-width:340px;
+  }
+  .readout .song-line{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:20px;
+  }
+  .readout .song-artist{
+    color:var(--cream-dim);
+    font-size:13px;
+    margin-top:4px;
+  }
+  .readout a.listen{
+    margin-top:14px;
+    display:inline-block;
+    background:var(--gold);
+    color:#1a1420;
+    text-decoration:none;
+    font-weight:600;
+    font-size:13px;
+    padding:8px 16px;
+    border-radius:999px;
+  }
+  .blinking{
+    animation: blink 0.9s steps(1) infinite;
+  }
+  @keyframes blink{
+    50%{ opacity:0.35; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .blinking{ animation:none; }
+    .btn{ transition:none; }
+  }
+
+  footer{
+    margin-top:28px;
+    font-size:11px;
+    color:rgba(185,178,196,0.5);
+    text-align:center;
+    letter-spacing:0.04em;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="marquee">
+    <p>This shirt has buttons. Pick one.</p>
+  </div>
+
+  <div class="panel">
+    <button class="btn surprise" onclick="surpriseMe()">
+      <span class="icon">🎲</span>
+      <span class="label-wrap">Surprise me<span class="sub">no peeking first</span></span>
+    </button>
+
+    <button class="btn song" onclick="playSong()">
+      <span class="icon">🎵</span>
+      <span class="label-wrap">Play me a song<span class="sub">one tap, zero skips</span></span>
+    </button>
+
+    <button class="btn sat" onclick="guessSAT()">
+      <span class="icon">🧠</span>
+      <span class="label-wrap">Guess Our SAT Scores<span class="sub">IRL prizes</span></span>
+    </button>
+  </div>
+
+  <div class="readout" id="readout">
+    <span class="idle">— awaiting input —</span>
+  </div>
+
+  <footer>NOVELTY MACHINE · NO REFUNDS</footer>
+</div>
+
+<script>
+  const readout = document.getElementById('readout');
+
+  const songs = [
+    { title: "Mr. Blue Sky", artist: "Electric Light Orchestra", url: "https://www.youtube.com/results?search_query=Mr+Blue+Sky+ELO" },
+    { title: "Superstition", artist: "Stevie Wonder", url: "https://www.youtube.com/results?search_query=Superstition+Stevie+Wonder" },
+    { title: "Feel Good Inc.", artist: "Gorillaz", url: "https://www.youtube.com/results?search_query=Feel+Good+Inc+Gorillaz" },
+    { title: "Sicko Mode", artist: "Travis Scott", url: "https://www.youtube.com/results?search_query=Sicko+Mode+Travis+Scott" },
+    { title: "Dog Days Are Over", artist: "Florence + The Machine", url: "https://www.youtube.com/results?search_query=Dog+Days+Are+Over" },
+    { title: "September", artist: "Earth, Wind & Fire", url: "https://www.youtube.com/results?search_query=September+Earth+Wind+Fire" },
+    { title: "Take On Me", artist: "a-ha", url: "https://www.youtube.com/results?search_query=Take+On+Me+a-ha" },
+    { title: "Get Lucky", artist: "Daft Punk ft. Pharrell", url: "https://www.youtube.com/results?search_query=Get+Lucky+Daft+Punk" }
+  ];
+
+  const verdicts = [
+    "Solid. Colleges will assume you're 'well-rounded.'",
+    "Suspiciously high. Did you cheat, or are you just built different?",
+    "Respectable. Not a flex, not a red flag.",
+    "Bold guess by the machine. No refunds on ego damage.",
+    "This number is legally non-binding.",
+    "Certified average. There's dignity in that."
+  ];
+
+  function setReadout(html){
+    readout.innerHTML = html;
+  }
+
+  function playSong(){
+    setReadout('<span class="idle blinking">selecting track…</span>');
+    setTimeout(()=>{
+      const s = songs[Math.floor(Math.random()*songs.length)];
+      setReadout(
+        '<span class="song-line">"' + s.title + '"</span>' +
+        '<span class="song-artist">' + s.artist + '</span>' +
+        '<a class="listen" href="' + s.url + '" target="_blank" rel="noopener">Listen ▸</a>'
+      );
+    }, 550);
+  }
+
+  function guessSAT(){
+    setReadout('<span class="idle blinking">analyzing vibe…</span>');
+    setTimeout(()=>{
+      const score = Math.floor(Math.random()*9+8)*100; // 800 - 1600, steps of 100-ish
+      const clamped = Math.min(1600, Math.max(800, score));
+      const verdict = verdicts[Math.floor(Math.random()*verdicts.length)];
+      setReadout(
+        '<span class="big-number">' + clamped + '</span>' +
+        '<span class="verdict">' + verdict + '</span>'
+      );
+    }, 900);
+  }
+
+  function surpriseMe(){
+    const actions = [playSong, guessSAT];
+    const pick = actions[Math.floor(Math.random()*actions.length)];
+    setReadout('<span class="idle blinking">rolling the dice…</span>');
+    setTimeout(pick, 500);
+  }
+</script>
+
+</body>
+</html>
