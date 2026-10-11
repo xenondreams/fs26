@@ -63,36 +63,40 @@
     box-shadow:
       0 30px 60px -20px var(--shadow-deep),
       inset 0 1px 0 rgba(255,255,255,0.06);
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 14px;
   }
 
   .btn{
     position:relative;
     border:none;
     width:100%;
-    padding:22px 20px;
+    padding:20px 12px;
+    min-height:130px;
     border-radius:20px;
     font-family:'Baloo 2', sans-serif;
     font-weight:700;
-    font-size:20px;
+    font-size:17px;
+    line-height:1.15;
     color:#1a1420;
-    text-align:left;
     cursor:pointer;
     display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:14px;
+    justify-content:center;
+    text-align:center;
+    gap:10px;
     transform:translateY(0);
     transition:transform 0.08s ease, box-shadow 0.08s ease;
     text-decoration:none;
   }
   .btn .icon{
-    font-size:26px;
+    font-size:32px;
     line-height:1;
     filter:drop-shadow(0 1px 0 rgba(255,255,255,0.25));
   }
-  .btn .label-wrap{display:flex; flex-direction:column; gap:2px;}
+  .btn .label-wrap{display:flex; flex-direction:column; gap:2px; align-items:center;}
   .btn .sub{
     font-family:'Inter',sans-serif;
     font-weight:500;
@@ -102,7 +106,13 @@
   .btn.founder{ background: linear-gradient(180deg, #f16bb4, var(--magenta)); box-shadow: 0 8px 0 #a02566, 0 14px 24px -8px rgba(232,68,155,0.5);}
   .btn.song1{ background: linear-gradient(180deg, #ff8168, var(--crimson)); box-shadow: 0 8px 0 #a5301f, 0 14px 24px -8px rgba(232,84,63,0.5);}
   .btn.song2{ background: linear-gradient(180deg, #4fe3c1, var(--teal)); box-shadow: 0 8px 0 #1e8a70, 0 14px 24px -8px rgba(47,191,159,0.5);}
+  .btn.video3{ background: linear-gradient(180deg, #7fb8ff, #4a8fe0); box-shadow: 0 8px 0 #2f62a3, 0 14px 24px -8px rgba(74,143,224,0.5);}
+  .btn.skiball{ background: linear-gradient(180deg, #b79bff, #8a63e8); box-shadow: 0 8px 0 #5a3aa8, 0 14px 24px -8px rgba(138,99,232,0.5);}
+  .btn.music{ background: linear-gradient(180deg, #ffe58f, var(--gold)); box-shadow: 0 8px 0 #b8902a, 0 14px 24px -8px rgba(255,210,90,0.5);}
+  .btn.mean{ background: linear-gradient(180deg, #ff9ac7, #ff6fa8); box-shadow: 0 8px 0 #b03a6c, 0 14px 24px -8px rgba(255,111,168,0.5);}
   .btn.sat{ background: linear-gradient(180deg, #ffc766, var(--amber)); box-shadow: 0 8px 0 #b87914, 0 14px 24px -8px rgba(242,169,59,0.5);}
+
+  .panel .btn:last-child:nth-child(odd){ grid-column:1 / -1; }
 
   .btn:active{
     transform:translateY(6px);
@@ -110,6 +120,10 @@
   .btn.founder:active{ box-shadow: 0 2px 0 #a02566, 0 6px 14px -6px rgba(232,68,155,0.5); }
   .btn.song1:active{ box-shadow: 0 2px 0 #a5301f, 0 6px 14px -6px rgba(232,84,63,0.5); }
   .btn.song2:active{ box-shadow: 0 2px 0 #1e8a70, 0 6px 14px -6px rgba(47,191,159,0.5); }
+  .btn.video3:active{ box-shadow: 0 2px 0 #2f62a3, 0 6px 14px -6px rgba(74,143,224,0.5); }
+  .btn.skiball:active{ box-shadow: 0 2px 0 #5a3aa8, 0 6px 14px -6px rgba(138,99,232,0.5); }
+  .btn.music:active{ box-shadow: 0 2px 0 #b8902a, 0 6px 14px -6px rgba(255,210,90,0.5); }
+  .btn.mean:active{ box-shadow: 0 2px 0 #b03a6c, 0 6px 14px -6px rgba(255,111,168,0.5); }
   .btn.sat:active{ box-shadow: 0 2px 0 #b87914, 0 6px 14px -6px rgba(242,169,59,0.5); }
 
   .readout{
@@ -175,7 +189,27 @@
 
     <a class="btn song2" href="https://youtu.be/vUB8gKoyGbc?si=7ptYAlrHqvZoQzBj&t=141" target="_blank" rel="noopener">
       <span class="icon">🎵</span>
-      <span class="label-wrap">#CTCNTNGNT Theme Song</span>
+      <span class="label-wrap">CTCNTNGT Theme Song</span>
+    </a>
+
+    <a class="btn video3" href="https://youtu.be/1xwEj41lspI?si=7CG7X__-6k5JR4Rk" target="_blank" rel="noopener">
+      <span class="icon">▶️</span>
+      <span class="label-wrap">General Ethos</span>
+    </a>
+
+    <a class="btn music" href="https://www.tiktok.com/@keyboardshort" target="_blank" rel="noopener">
+      <span class="icon">🎹</span>
+      <span class="label-wrap">UNLIMITED MUSIC</span>
+    </a>
+
+    <a class="btn skiball" href="skiball.html">
+      <span class="icon">🎯</span>
+      <span class="label-wrap">Ski Ball Challenge<span class="sub">IRL prizes</span></span>
+    </a>
+
+    <a class="btn mean" href="https://youtu.be/oaAMjh0ufD4?si=ASmdrTmbVVdcQqqw" target="_blank" rel="noopener">
+      <span class="icon">❓</span>
+      <span class="label-wrap">What Does This Mean</span>
     </a>
 
     <a class="btn sat" href="sat.html">

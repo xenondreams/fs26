@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ski Ball Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#14121a;
+    --bg-1:#1f1b2e;
+    --cream:#f5f0e8;
+    --cream-dim:#b9b2c4;
+    --gold:#ffd25a;
+    --win:#4fe3a1;
+    --lose:#ff8168;
+    --shadow-deep: rgba(0,0,0,0.55);
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;
+    padding:0;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(255,210,90,0.10), transparent 55%),
+      var(--bg-0);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    min-height:100dvh;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .stage{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100dvh;
+    padding:36px 20px 48px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .back{
+    align-self:flex-start;
+    color:var(--cream-dim);
+    text-decoration:none;
+    font-size:13px;
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(28px, 8.5vw, 38px);
+    line-height:1.1;
+    text-align:center;
+    margin:10px 0 0;
+    color:var(--gold);
+    text-shadow:0 0 24px rgba(255,210,90,0.25);
+  }
+  .outcomes{
+    width:100%;
+    margin-top:32px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .card{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.12)),
+      var(--bg-1);
+    border-radius:22px;
+    padding:22px 20px;
+    box-shadow:
+      0 20px 40px -20px var(--shadow-deep),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .card .label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:6px;
+  }
+  .card.win .label{color:var(--win);}
+  .card.lose .label{color:var(--lose);}
+  .card p{
+    margin:0;
+    font-size:18px;
+    line-height:1.4;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <a class="back" href="index.html">‹ back</a>
+
+  <h1>Challenge the Man Wearing This Shirt to a Game of Ski Ball</h1>
+
+  <div class="outcomes">
+    <div class="card win">
+      <span class="label">If you win</span>
+      <p>We'll buy you a beer or corn dog.</p>
+    </div>
+    <div class="card lose">
+      <span class="label">If you lose</span>
+      <p>You get a firm handshake with 100% eye contact.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
