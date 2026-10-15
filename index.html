@@ -299,7 +299,7 @@
   });
 </script>
 
-<div id="vc" style="text-align:center;margin:40px 0 20px;font:13px Inter,sans-serif;color:#f5f0e8;opacity:0.04;cursor:default;transition:opacity .2s;user-select:text;">&nbsp;</div>
+<div id="vc" style="text-align:center;margin:40px 0 20px;font:16px Inter,sans-serif;color:#f5f0e8;">&nbsp;</div>
 <script>
 (function(){
   var NS = 'shirt-8f3k2q';   // change to any random string so nobody else shares your count
@@ -311,15 +311,12 @@
     skip = localStorage.getItem('skipCount') === '1';
   } catch(e){}
   var url = 'https://api.counterapi.dev/v1/' + NS + '/' + KEY + (skip ? '' : '/up');
-  fetch(url).then(function(r){ return r.json(); })
+  fetch(url)
+    .then(function(r){ return r.json(); })
     .then(function(d){ el.textContent = d.count; })
-    .catch(function(){});
-  el.addEventListener('click', function(){
-    el.style.opacity = el.style.opacity === '1' ? '0.04' : '1';
-  });
+    .catch(function(){ el.textContent = '—'; });
 })();
 </script>
-
   
 </body>
 </html>
