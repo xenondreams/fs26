@@ -254,49 +254,41 @@
 
 
 <script>
-  const a = document.getElementById('bgaudio');
-  const b = document.getElementById('soundBtn');
-  let started = false;
+(function(){
+  var a = document.getElementById('bgaudio');
+  var b = document.getElementById('soundBtn');
+  var userPaused = false;
 
-  function setPlaying(on){
-    b.textContent = on ? '🔇 Pause the FUN SPOT WEEKEND 26 THEME SONG' : '🔊 Play the FUN SPOT WEEKEND 26 Theme Song';
+  function label(){
+    b.textContent = a.paused
+      ? '🔊 Play the FUN SPOT WEEKEND 26 Theme Song'
+      : '🔇 Pause the FUN SPOT WEEKEND 26 THEME SONG';
+  }
+  a.addEventListener('play', label);
+  a.addEventListener('pause', label);
+
+  function start(){
+    var p = a.play();
+    if (p && p.catch) p.catch(function(){});
   }
 
-  function tryStart(){
-    if (started) return;
-    const p = a.play();
-    if (p && p.then) {
-      p.then(function(){ started = true; setPlaying(true); removeGestureListeners(); })
-       .catch(function(){ /* blocked until the person taps */ });
-    }
-  }
+  // Try on load (only works in some desktop browsers)
+  start();
 
-  function removeGestureListeners(){
-    document.removeEventListener('click', tryStart);
-    document.removeEventListener('touchend', tryStart);
-    document.removeEventListener('keydown', tryStart);
-  }
-
-  // Try right away (works on some desktop browsers), otherwise start on the first tap anywhere.
-  tryStart();
-  document.addEventListener('click', tryStart);
-  document.addEventListener('touchend', tryStart);
-  document.addEventListener('keydown', tryStart);
-
-  b.addEventListener('click', function(e){
-    e.stopPropagation();
-    if (a.paused) {
-      a.play();
-      started = true;
-      removeGestureListeners();
-      setPlaying(true);
-    } else {
-      a.pause();
-      started = true;
-      removeGestureListeners();
-      setPlaying(false);
-    }
+  // First tap anywhere (except the button) starts the music
+  document.addEventListener('click', function(e){
+    if (e.target.closest('#soundBtn')) return;
+    if (a.paused && !userPaused) start();
   });
+
+  // The button is a plain toggle
+  b.addEventListener('click', function(){
+    if (a.paused) { userPaused = false; start(); }
+    else { userPaused = true; a.pause(); }
+  });
+
+  label();
+})();
 </script>
 
 <div id="vc" style="text-align:center;margin:40px 0 20px;font:16px Inter,sans-serif;color:#f5f0e8;">&nbsp;</div>
@@ -317,6 +309,6 @@
     .catch(function(){ el.textContent = '—'; });
 })();
 </script>
-  
+
 </body>
 </html>
